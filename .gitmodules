@@ -1,11 +1,11 @@
 [submodule "api"]
 	path = api
-	url = https://github.com/sitespectrum/stickers_api.git
+	url = ../stickers_api.git
 	branch = master
 [submodule "web"]
 	path = web
-	url = https://github.com/sitespectrum/stickers_web.git
+	url = ../stickers_web.git
 	branch = master
 [submodule "desktop"]
 	path = desktop
-	url = https://github.com/sitespectrum/stickers_desktop_qnd.git
+	url = ../stickers_desktop_qnd.git
