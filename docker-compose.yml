@@ -1,0 +1,55 @@
+services:
+  stickers_api:
+    build:
+      context: ./api
+    environment:
+      PORT: "8000"
+      DJANGO_SECRET: "${DJANGO_SECRET}"
+      DEBUG: "${DEBUG:-0}"
+      PASSWORD_ATTEMPT_LIMIT: "${PASSWORD_ATTEMPT_LIMIT}"
+      PASSWORD_ATTEMPT_BAN_LIMIT: "${PASSWORD_ATTEMPT_BAN_LIMIT}"
+      TURNSTILE_SECRET: "${TURNSTILE_SECRET}"
+      TELEGRAM_TOKEN: "${TELEGRAM_TOKEN}"
+      RESEND_API_KEY: "${RESEND_API_KEY}"
+      DISCORD_KEY: "${DISCORD_KEY}"
+      DISCORD_CLIENT_ID: "${DISCORD_CLIENT_ID}"
+      DISCORD_CALLBACK: "${DISCORD_CALLBACK}"
+      MAX_UPLOAD_SIZE: "${MAX_UPLOAD_SIZE}"
+      MAX_USER_STORAGE: "${MAX_USER_STORAGE}"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      AWS_STORAGE_BUCKET_NAME: "${AWS_STORAGE_BUCKET_NAME}"
+      AWS_S3_ENDPOINT_URL: "${AWS_S3_ENDPOINT_URL}"
+    volumes:
+      - sqlite_data:/app/db.sqlite3
+    restart: unless-stopped
+    networks:
+      - internal
+
+  stickers_web:
+    build:
+      context: ./web
+      args:
+        VITE_API_URL: "${VITE_API_URL}"
+        VITE_BOT_ID: "${VITE_BOT_ID}"
+        VITE_BOT_NAME: "${VITE_BOT_NAME}"
+        VITE_TURNSTILE_SITE_KEY: "${VITE_TURNSTILE_SITE_KEY}"
+        VITE_DISCORD_URL: "${VITE_DISCORD_URL}"
+    restart: unless-stopped
+    networks:
+      - internal
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run
+    environment:
+      CF_TUNNEL_TOKEN: "${CF_TUNNEL_TOKEN}"
+    restart: unless-stopped
+    networks:
+      - internal
+
+volumes:
+  sqlite_data:
+
+networks:
+  internal:
