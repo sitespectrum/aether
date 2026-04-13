@@ -46,10 +46,12 @@ services:
     networks:
       - internal
 
-  adminer:
-    image: ghcr.io/shyim/adminerevo:latest
+  sqlite-web:
+    image: ghcr.io/coleifer/sqlite-web:latest
+    command: sqlite_web /data/db.sqlite3 --host 0.0.0.0 --port 8080
     volumes:
       - sqlite_data:/data
+    restart: unless-stopped
 
 volumes:
   sqlite_data:
