@@ -48,6 +48,10 @@ services:
 
   adminer:
     image: adminer
+    environment:
+      - ADMINER_DEFAULT_SERVER=
+      - ADMINER_DESIGN=pepa-linha
+      - ADMINER_PLUGINS=login-password-less
     volumes:
       - sqlite_data:/data
 
