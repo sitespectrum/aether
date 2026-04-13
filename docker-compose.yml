@@ -53,7 +53,7 @@ services:
       - SUDO_PASSWORD=${CODE_SERVER_PASSWORD}
       - TZ=Europe/Budapest
     volumes:
-      - sqlite_data:/data
+      - sqlite_data:/data:rw
     restart: unless-stopped
 
 volumes:
