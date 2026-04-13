@@ -46,9 +46,8 @@ services:
     networks:
       - internal
 
-  sqlite-web:
-    image: coleifer/sqlite-web
-    command: sqlite_web /data/db.sqlite3 --host 0.0.0.0 --port 8080
+  adminer:
+    image: adminer
     volumes:
       - sqlite_data:/data
 
