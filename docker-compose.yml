@@ -47,11 +47,7 @@ services:
       - internal
 
   adminer:
-    image: adminer
-    environment:
-      - ADMINER_DEFAULT_SERVER=
-      - ADMINER_DESIGN=pepa-linha
-      - ADMINER_PLUGINS=login-password-less
+    image: ghcr.io/shyim/adminerevo:latest
     volumes:
       - sqlite_data:/data
 
