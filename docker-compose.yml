@@ -30,7 +30,7 @@ services:
   django_static:
     image: python:3.13-alpine
     volumes:
-      - static_data:/staticfiles:ro
+      - static_data:/staticfiles/static:ro
     command: ["python", "-m", "http.server", "8000", "--bind", "0.0.0.0", "--directory", "/staticfiles"]
     restart: unless-stopped
     networks:
