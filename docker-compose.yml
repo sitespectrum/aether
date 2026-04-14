@@ -28,10 +28,10 @@ services:
       - internal
 
   django_static:
-    image: nginx:1.27-alpine
+    image: python:3.13-alpine
     volumes:
       - static_data:/staticfiles:ro
-      - ./api/nginx-conf.d:/etc/nginx/conf.d:ro
+    command: ["python", "-m", "http.server", "8000", "--bind", "0.0.0.0", "--directory", "/staticfiles"]
     restart: unless-stopped
     networks:
       - internal
